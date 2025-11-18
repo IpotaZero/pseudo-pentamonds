@@ -153,7 +153,7 @@ export class Pentamond {
     }
 
     hold() {
-        if (!this.#isPlayable || this.#isEnd) return
+        if (this.#isEnd) return
 
         if (this.#hold) {
             ;[this.#hold, this.#hand] = [this.#hand.getColor(), Hand.createFromColor(this.#hold)]

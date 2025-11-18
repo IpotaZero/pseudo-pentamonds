@@ -8,7 +8,7 @@ const Hand_1 = require("./Hand");
 const Next_1 = require("./Next");
 class Pentamond {
     static #createNullImageData(rows, cols) {
-        return Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0)).flat();
+        return Array.from({ length: rows * cols }, () => 0);
     }
     #board = new Board_1.Board();
     #next = new Next_1.Next([]);
@@ -121,7 +121,7 @@ class Pentamond {
         }
     }
     hold() {
-        if (!this.#isPlayable || this.#isEnd)
+        if (this.#isEnd)
             return;
         if (this.#hold) {
             ;

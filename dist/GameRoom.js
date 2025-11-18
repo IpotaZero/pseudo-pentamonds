@@ -49,7 +49,7 @@ class GameRoom {
         });
     }
     #sendDraw(player) {
-        const data = player.getVisualData();
+        const data = player.pentamond.getVisualData();
         this.$room.emit("draw", {
             board: pack(data.board),
             ghost: pack(data.ghost),

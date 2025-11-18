@@ -43,8 +43,5 @@ class GamePlayer {
                 break;
         }
     }
-    getVisualData() {
-        return this.pentamond.getVisualData();
-    }
 }
 exports.GamePlayer = GamePlayer;
