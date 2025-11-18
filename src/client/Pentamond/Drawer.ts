@@ -61,8 +61,30 @@ export class Drawer {
 
     // 描画処理
     draw(data: { board: number[]; ghost: number[]; sub: number[]; lines: number }): void {
+        // ライン数表示更新
         this.#lines.textContent = `LINES: ${data.lines}`
 
+        // 背景描画
+        this.#drawBackground()
+
+        // ゴースト描画
+        this.#ctx.globalAlpha = 0.5
+        this.#drawBlocks(data.ghost, Drawer.#COLS, this.#ctx)
+        this.#ctx.globalAlpha = 1
+
+        // ボード描画
+        this.#drawBlocks(data.board, Drawer.#COLS, this.#ctx)
+
+        // サブキャンバスクリア
+        this.#subCtx.clearRect(0, 0, Drawer.#SUB_WIDTH, Drawer.#SUB_HEIGHT)
+        this.#subCtx.fillStyle = "darkcyan"
+        this.#subCtx.fillRect(0, Drawer.#BLOCK_HEIGHT * 4, Drawer.#SUB_WIDTH, Drawer.#BLOCK_HEIGHT)
+
+        // サブ描画
+        this.#drawBlocks(data.sub, 5, this.#subCtx)
+    }
+
+    #drawBackground() {
         // メインキャンバスクリア
         this.#ctx.clearRect(0, 0, Drawer.#WIDTH, Drawer.#HEIGHT)
 
@@ -80,22 +102,6 @@ export class Drawer {
             this.#ctx.lineTo(x, Drawer.#HEIGHT)
             this.#ctx.stroke()
         }
-
-        // ゴースト描画
-        this.#ctx.globalAlpha = 0.5
-        this.#drawBlocks(data.ghost, Drawer.#COLS, this.#ctx)
-        this.#ctx.globalAlpha = 1
-
-        // ボード描画
-        this.#drawBlocks(data.board, Drawer.#COLS, this.#ctx)
-
-        // サブキャンバスクリア
-        this.#subCtx.clearRect(0, 0, Drawer.#SUB_WIDTH, Drawer.#SUB_HEIGHT)
-        this.#subCtx.fillStyle = "darkcyan"
-        this.#subCtx.fillRect(0, Drawer.#BLOCK_HEIGHT * 4, Drawer.#SUB_WIDTH, Drawer.#BLOCK_HEIGHT)
-
-        // サブ描画
-        this.#drawBlocks(data.sub, 5, this.#subCtx)
     }
 
     // ブロック群描画
@@ -123,23 +129,25 @@ export class Drawer {
             const x = col * Drawer.#BLOCK_WIDTH * 0.5
             const y = (Drawer.#ROWS - row - (upward ? 1 : 0)) * Drawer.#BLOCK_HEIGHT
 
-            ctx.beginPath()
             ctx.fillStyle = colors[Math.floor((state - 1) / 2)]
             this.#drawTriangle(x, y, Drawer.#BLOCK_WIDTH, Drawer.#BLOCK_HEIGHT, upward, ctx)
-            ctx.closePath()
-            ctx.fill()
-            ctx.stroke()
         })
     }
 
     // 三角形描画
     #drawTriangle(x: number, y: number, w: number, h: number, upward: boolean, ctx: CanvasRenderingContext2D): void {
+        ctx.beginPath()
         ctx.moveTo(x, y)
         ctx.lineTo(x + w, y)
+
         if (upward) {
             ctx.lineTo(x + w / 2, y + h)
         } else {
             ctx.lineTo(x + w / 2, y - h)
         }
+
+        ctx.closePath()
+        ctx.fill()
+        ctx.stroke()
     }
 }

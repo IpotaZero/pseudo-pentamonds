@@ -5,9 +5,9 @@ export class GameRoomScattered extends GameRoom {
     protected $handleAction(player: GamePlayer, action: string): void {
         super.$handleAction(player, action)
 
-        if (player.pentamond.game.lines >= 15) {
+        if (player.pentamond.record.lines >= 15) {
             player.pentamond.finish()
-            this.$room.emit("finish", player.id, player.pentamond.game.getCurrentTime())
+            this.$room.emit("finish", player.id, player.pentamond.record.getCurrentTime())
         }
     }
 

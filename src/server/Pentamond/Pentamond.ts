@@ -1,7 +1,7 @@
 import { Back } from "./Back"
 import { Block } from "./Block"
 import { Board } from "./Board"
-import { Game } from "./Game"
+import { GameRecord } from "./GameRecord"
 import { Hand } from "./Hand"
 import { Next } from "./Next"
 
@@ -20,10 +20,10 @@ export class Pentamond {
     #isPlayable = false
     #isEnd = false
 
-    game!: Game
+    record!: GameRecord
 
     start() {
-        this.game = new Game()
+        this.record = new GameRecord()
         this.#isPlayable = true
     }
 
@@ -37,7 +37,7 @@ export class Pentamond {
             ghost: this.#isPlayable ? this.#createGhostImageData() : Pentamond.#createNullImageData(20, 17),
             board: this.#isPlayable ? this.#createHandImageData() : this.#board.getImageData(),
             sub: this.#createSubImageData(),
-            lines: this.game.lines,
+            lines: this.record.lines,
         }
     }
 
@@ -199,7 +199,7 @@ export class Pentamond {
         // 1列揃ってたらline++
         const deletedRow = this.#board.deleteRow()
         if (deletedRow.every((b) => b.state !== "none")) {
-            this.game.lines++
+            this.record.lines++
         }
 
         // 一手戻しできなくする

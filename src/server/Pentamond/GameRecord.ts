@@ -1,4 +1,4 @@
-export class Game {
+export class GameRecord {
     lines = 0
     readonly #startTime = performance.now()
 
