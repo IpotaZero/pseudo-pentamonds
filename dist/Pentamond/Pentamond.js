@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pentamond = void 0;
 const Back_1 = require("./Back");
 const Board_1 = require("./Board");
-const Game_1 = require("./Game");
+const GameRecord_1 = require("./GameRecord");
 const Hand_1 = require("./Hand");
 const Next_1 = require("./Next");
 class Pentamond {
@@ -17,9 +17,9 @@ class Pentamond {
     #hand = Hand_1.Hand.createFromColor(this.#next.getNext());
     #isPlayable = false;
     #isEnd = false;
-    game;
+    record;
     start() {
-        this.game = new Game_1.Game();
+        this.record = new GameRecord_1.GameRecord();
         this.#isPlayable = true;
     }
     finish() {
@@ -31,7 +31,7 @@ class Pentamond {
             ghost: this.#isPlayable ? this.#createGhostImageData() : Pentamond.#createNullImageData(20, 17),
             board: this.#isPlayable ? this.#createHandImageData() : this.#board.getImageData(),
             sub: this.#createSubImageData(),
-            lines: this.game.lines,
+            lines: this.record.lines,
         };
     }
     #createGhostImageData() {
@@ -162,7 +162,7 @@ class Pentamond {
         // 1列揃ってたらline++
         const deletedRow = this.#board.deleteRow();
         if (deletedRow.every((b) => b.state !== "none")) {
-            this.game.lines++;
+            this.record.lines++;
         }
         // 一手戻しできなくする
         this.#back.set(null, null);
