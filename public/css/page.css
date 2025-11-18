@@ -1,0 +1,18 @@
+#room-entrance {
+    & input {
+        font-size: 48px;
+    }
+}
+
+#pentamond {
+    & #ready,
+    & #retry {
+        position: absolute;
+
+        z-index: 200;
+
+        font-size: 48px;
+
+        cursor: pointer;
+    }
+}

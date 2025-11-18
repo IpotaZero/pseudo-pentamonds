@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Pseudo Pentamonds</title>
+
+        <link rel="stylesheet" href="./css/general.css" />
+        <link rel="stylesheet" href="./css/game.css" />
+        <link rel="stylesheet" href="./css/pages.css" />
+        <link rel="stylesheet" href="./css/page.css" />
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="src/run.js" type="module"></script>
+    </head>
+    <body>
+        <div class="page" id="room-entrance">
+            <form>
+                <input type="text" placeholder="enter room ID" />
+            </form>
+        </div>
+
+        <div class="page hidden" id="pentamond">
+            <div id="container">
+                <button id="ready">READY</button>
+            </div>
+            <div id="sub-container"></div>
+        </div>
+    </body>
+</html>
